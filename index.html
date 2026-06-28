@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆豆计时 - 开店人员的计时利器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1565C0;
+            --primary-dark: #0D47A1;
+            --primary-light: #42A5F5;
+            --accent: #FF6F00;
+            --bg: #f5f7fa;
+            --card: #ffffff;
+            --text: #333333;
+            --text-secondary: #666666;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: #fff;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        header .icon-placeholder {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            user-select: none;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-top: 8px;
+        }
+
+        .hero-image {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .hero-image .img-placeholder {
+            max-width: 100%;
+            width: 800px;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 3px dashed #90caf9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 15px;
+            user-select: none;
+        }
+
+        .hero-image .img-placeholder svg {
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .hero-image .img-placeholder span {
+            opacity: 0.7;
+        }
+
+        .section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--primary-dark);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 32px 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card .icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 30px 0 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background: #e65100;
+            transform: scale(1.03);
+        }
+
+        .btn.download {
+            background: var(--primary);
+        }
+
+        .btn.download:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-placeholder {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #999;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+
+        .privacy {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 16px;
+            padding: 36px 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .privacy h3 {
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+
+        .privacy p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 16px 0 12px;
+        }
+
+        footer .contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.7rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+            .hero-image .img-placeholder {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header id="top">
+    <div class="container">
+        <div class="icon-placeholder">
+            替换 App Icon
+        </div>
+        <h1>豆豆计时</h1>
+        <p class="subtitle">开店人员的计时利器 — 简单 · 高效 · 一目了然</p>
+    </div>
+</header>
+
+<section class="hero-image">
+    <div class="container">
+        <div class="img-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="8.5" cy="15.5" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="15.5" cy="15.5" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+            <span>在此处替换主宣传图 — iPhone · iPad · Android 三端截图</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="container">
+        <h2 class="section-title">核心功能</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">1</div>
+                <h3>开店人员的计时利器</h3>
+                <p>专为餐饮、娱乐等门店场景设计，快速掌握每桌、每位顾客的计时状态，提升运营效率。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">2</div>
+                <h3>一键批量生成计时器</h3>
+                <p>输入数字即可一次性生成指定数量的计时器，无需逐个创建，应对高峰期从容不迫。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">3</div>
+                <h3>正计时 &amp; 倒计时 自由切换</h3>
+                <p>每个计时器独立设置正计时（累加）或倒计时（递减），灵活匹配不同业务场景。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">4</div>
+                <h3>关联状态管理</h3>
+                <p>每个计时器可绑定自定义状态（如已入座、正在服务、待结账等），全局状态一目了然。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">5</div>
+                <h3>附加备注信息</h3>
+                <p>每个计时器支持添加备注，记录座位号、特殊需求或顾客备注，细节不遗漏。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">6</div>
+                <h3>单机运行 · 数据不上传</h3>
+                <p>所有数据仅存储在本地设备，无需注册、无需联网，保护顾客与门店数据隐私。</p>
+            </div>
+        </div>
+        <div class="cta">
+            <a href="#download" class="btn download">立即下载</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="download">
+    <div class="container">
+        <h2 class="section-title">下载豆豆计时</h2>
+        <div style="text-align:center;">
+            <p style="color:var(--text-secondary);margin-bottom:28px;">
+                请将应用商店链接替换到下方按钮
+            </p>
+            <span class="btn-placeholder">App Store / 各大应用商店 — 替换下载链接</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="privacy">
+    <div class="container">
+        <h2 class="section-title">隐私政策</h2>
+        <div class="privacy">
+            <h3>隐私承诺</h3>
+            <p>本 App <strong>不上传任何用户数据</strong>，仅仅作为单机应用程序运行。所有计时记录、状态、备注等数据均仅存储在您的设备本地，不会通过任何方式收集、传输或分享给第三方。您无需注册账户、无需联网即可使用全部功能。</p>
+            <p style="margin-top:12px;">如您对隐私政策有任何疑问，欢迎通过下方联系方式与我们取得联系。</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>豆豆计时</p>
+        <div class="contact">
+            <a href="https://weibo.com/u/1682726775" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zm-1.2-7.237c-2.832.658-4.582 2.654-4.33 4.411.15 1.041.925 1.87 2.005 2.248.216.076.44.048.569-.037.142-.094.073-.224-.152-.347-.955-.522-1.54-1.387-1.627-2.348-.139-1.531 1.108-3.117 3.344-3.835.248-.079.369-.24.234-.335-.096-.067-.243-.039-.343.004-.1.043-.224.111-.365.16-.14.05-.232-.033-.169-.152.084-.162.202-.303.34-.411.3-.237.673-.327.963-.207.396.164.214.526-.108.632-.095.032-.187.057-.275.08.101-.017.207-.039.315-.066.293-.074.651-.165.927-.086.358.102.723.378.875.756.296.734-.146 1.549-1.046 2.023-.843.443-1.908.538-2.536.233-.49-.238-.562-.685-.209-1.03.232-.227.585-.376.95-.466.399-.098.789-.093 1.026.01.145.063.201.15.084.218-.12.07-.303.105-.476.15-.189.05-.356.123-.478.224-.226.188-.102.372.263.416.433.052 1-.128 1.367-.413.399-.31.517-.676.324-.892-.153-.17-.46-.24-.798-.192-.32.046-.641.178-.871.334-.215.145-.341.308-.288.36.023.022.075.018.137-.005zm8.694-6.587c.69.6.765 1.606.164 2.24-.604.636-1.664.666-2.355.066-.69-.6-.764-1.606-.163-2.24.604-.637 1.664-.666 2.354-.066zm-1.122.793c-.19.2-.243.517-.121.708.124.193.387.238.588.102.206-.135.314-.433.193-.64-.114-.196-.382-.248-.557-.167-.087.035-.083.06-.103-.003zM20.69 7.26c-1.318-1.304-3.297-1.756-5.542-1.361-1.78-1.554-4.172-2.332-6.896-1.997-4.598.566-8.05 4.283-7.708 8.3.23 2.718 2.14 4.913 4.703 6.002-1.922.283-3.993-.112-5.677-1.29-1.973-1.381-3.329-3.68-3.544-6.289-.317-3.862 2.304-7.476 6.728-8.975 3.04-1.03 6.11-.907 8.576.198-1.14-.56-2.55-.825-4.134-.687-3.645.87-6.146 3.668-6.574 6.382-.364 2.313.578 4.304 2.068 5.398.735.54 1.54.865 2.366.986-3.05-.384-5.537-2.424-5.947-5.233-.444-3.047 1.768-6.03 5.38-7.198 2.105-.68 4.25-.531 5.936.374.466.25.887.568 1.251.932z"/></svg>
+                微博
+            </a>
+            <a href="mailto:haochengdong@outlook.com">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                haochengdong@outlook.com
+            </a>
+        </div>
+        <p style="font-size:0.85rem;opacity:0.7;margin-top:12px;">
+            <a href="#privacy">隐私政策</a>
+        </p>
+        <p style="font-size:0.85rem;opacity:0.6;margin-top:10px;">
+            &copy; 2026 豆豆计时. All rights reserved.
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
